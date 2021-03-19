@@ -5,6 +5,7 @@ const facil = document.getElementById('facil');
 const normal = document.getElementById('normal');
 const dificil = document.getElementById('dificil');
 let position = [];
+let lv;
 
 const getRandom = (items) => Math.floor(Math.random() * items.length);
 const getItemRandom = (items) => items[getRandom(items)];
@@ -27,34 +28,41 @@ const gridToHTML = (lv) =>{
     grid.innerHTML = '';
     for (let i = 0; i < gridJS.length; i++) {
         for (let j = 0; j < gridJS[i].length; j++) {
-            const square = document.createElement('div');
-            square.dataset.x = i;
-            square.dataset.y = j;
-            square.innerText = gridJS[i][j];
-            square.style.top = `${i * 50}px`;
-            square.style.left = `${j * 50}px`;
-            square.addEventListener('click', selectedItem)
-            grid.appendChild(square);
+            squareGenerator(i, j)
         }
     }
-    checkHorizontalMatches(grid);
 }
+
+const squareGenerator = (i, j) =>{
+    const square = document.createElement('div');
+    square.dataset.x = i;
+    square.dataset.y = j;
+    square.innerText = gridJS[i][j];
+    square.style.top = `${i * 50}px`;
+    square.style.left = `${j * 50}px`;
+    square.addEventListener('click', selectedItem)
+    grid.appendChild(square);
+}
+
 
 facil.addEventListener('click', ()=>{
     lv = 9;
     createBoard(lv);
+    checkHorizontalMatches(gridJS);
     gridToHTML(lv)
 })
 
 normal.addEventListener('click', ()=>{
     lv = 8;
     createBoard(lv);
+    checkHorizontalMatches(gridJS);
     gridToHTML(lv)
 })
 
 dificil.addEventListener('click', ()=>{
     lv = 7;
     createBoard(lv);
+    checkHorizontalMatches(gridJS);
     gridToHTML(lv)
 })
 
@@ -129,20 +137,24 @@ const swapElement = (square1, square2) =>{
     }
 }
 
-// const checkHorizontalMatches = (grid) =>{
-//     let result = false;
-//     for (let i = 0; i < grid.length; i++) {
-//         for (let j = 0; j < grid[i].length; j++) {
-//             if(grid[i][j] === grid[i][j+1] && grid[i][j] === grid[i][j+2]){
-//                 result = true;
-//                 console.log(grid[i][j].innerHTML)
-//                 grid[i][j].innerHTML = '';
-//             }
-//         }
-//     }
-//     console.log('hay 3 iguales');
-//     return result;
-// }
+const checkHorizontalMatches = (gridJS) =>{
+    let result = false;
+    for (let i = 0; i < gridJS.length; i++) {
+        for (let j = 0; j < gridJS[i].length; j++) {
+            if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2]){
+                result = true;
+                gridJS[i][j] = '';
+                gridJS[i][j+1] = '';
+                gridJS[i][j+2] = '';
+                gridToHTML(lv)
+                // gridHTML[i][j].innerHTML = gridJS[i][j];
+                // gridHTML[i][j+1].innerHTML = gridJS[i][j+1];
+                // gridHTML[i][j+2].innerHTML = gridJS[i][j+2];
+            }
+        }
+    }
+    return result;
+}
 
 // const tieneBloqueHorizontal = (matriz) =>{
 //     let result = false;
