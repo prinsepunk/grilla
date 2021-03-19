@@ -141,32 +141,30 @@ const checkHorizontalMatches = (gridJS) =>{
     let result = false;
     for (let i = 0; i < gridJS.length; i++) {
         for (let j = 0; j < gridJS[i].length; j++) {
-            if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2]){
+            if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2] && gridJS[i][j] === gridJS[i][j+3] && gridJS[i][j] === gridJS[i][j+4]){
+                result = true;
+                gridJS[i][j] = '';
+                gridJS[i][j+1] = '';
+                gridJS[i][j+2] = '';
+                gridJS[i][j+3] = '';
+                gridJS[i][j+4] = '';
+                gridToHTML(lv)
+            } else if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2] && gridJS[i][j] === gridJS[i][j+3]){
+                result = true;
+                gridJS[i][j] = '';
+                gridJS[i][j+1] = '';
+                gridJS[i][j+2] = '';
+                gridJS[i][j+3] = '';
+                gridToHTML(lv)
+            }else if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2]){
                 result = true;
                 gridJS[i][j] = '';
                 gridJS[i][j+1] = '';
                 gridJS[i][j+2] = '';
                 gridToHTML(lv)
-                // gridHTML[i][j].innerHTML = gridJS[i][j];
-                // gridHTML[i][j+1].innerHTML = gridJS[i][j+1];
-                // gridHTML[i][j+2].innerHTML = gridJS[i][j+2];
             }
         }
     }
     return result;
 }
 
-// const tieneBloqueHorizontal = (matriz) =>{
-//     let result = false;
-//     let newArr = [];
-//     for (let i = 0; i < matriz.length; i++) {
-//         for (let j = 0; j < matriz[i].length; j++) {
-//             if (matriz[i][j] === matriz[i][j+1] && matriz[i][j] === matriz[i][j+2]) {
-//                 result = true;
-//                 matriz[i].splice(j, j+2);
-//             }
-//         }
-//     }
-//     return matriz;
-//     // return result
-// }
