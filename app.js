@@ -16,8 +16,8 @@ const createBoard = (lv) =>{
         for (let j = 0; j < lv; j++) {
             gridJS[i][j] = getItemRandom(items);
         }
-        
     }
+    // checkHorizontalMatches(gridJS);
 }
 
 const gridToHTML = (lv) =>{
@@ -37,6 +37,7 @@ const gridToHTML = (lv) =>{
             grid.appendChild(square);
         }
     }
+    checkHorizontalMatches(grid);
 }
 
 facil.addEventListener('click', ()=>{
@@ -61,14 +62,16 @@ const selectedItem = (e) =>{
     let click = document.querySelector('.selected');
     if(click){
         if (adjacent(click, e.target)) {
-            console.log('adjacentes');
-            const datax1 = Number(click.dataset.x);
-            const datay1 = Number(click.dataset.y);
-            const datax2 = Number(e.target.dataset.x);
-            const datay2 = Number(e.target.dataset.y);
-            console.log(`datax1: ${datax1}, datax2: ${datax2}, datay1: ${datay1}, datay2: ${datay2}`);
+            // console.log('adjacentes');
+            // const datax1 = Number(click.dataset.x);
+            // const datay1 = Number(click.dataset.y);
+            // const datax2 = Number(e.target.dataset.x);
+            // const datay2 = Number(e.target.dataset.y);
+            // console.log(`datax1: ${datax1}, datax2: ${datax2}, datay1: ${datay1}, datay2: ${datay2}`);
 
             swapElement(click, e.target);
+
+            click.classList.remove('selected');
         } else{
             click.classList.remove('selected');
             e.target.classList.add('selected');
@@ -84,12 +87,17 @@ const adjacent = (square1, square2)=>{
     const datax2 = Number(square2.dataset.x);
     const datay2 = Number(square2.dataset.y);
     // console.log(`datax1: ${datax1}, datax2: ${datax2}, datay1: ${datay1}, datay2: ${datay2}`);
+    // console.log(`(x1 ${datax1} === x2 ${datax2} && y1 ${datay1} === y2+1 ${datay2+1})||
+    // (x1 ${datax1} === x2 ${datax2} && y1 ${datay1} === y2-1 ${datay2-1})||
+    // (x1 ${datax1} === x2+1 ${datax2+1} && y1 ${datay1} === y2 ${datay2})||
+    // (x1 ${datax1} === x2-1 ${datax2-1} && y1 ${datay1} === y2 ${datay2})`);
     if(
-        (datax1 === datax2 && datay1 === datay2+1)||
-        (datax1 === datax2 && datay1 === datay2-1)||
-        (datax1 === datax2+1 && datay1 === datay2)||
-        (datax1 === datax2-1 && datay1 === datay2)
+        (datax1 === datax2 && datay1 === datay2 + 1) ||
+        (datax1 === datax2 && datay1 === datay2 - 1) ||
+        (datay1 === datay2 && datax1 === datax2 + 1) ||
+        (datay1 === datay2 && datax1 === datax2 - 1)
     ){
+        // console.log('true')
         return true
     }
     return false
@@ -109,16 +117,44 @@ const swapElement = (square1, square2) =>{
         square1.style.left = `${datay2 * 50}px`;
         square2.style.left = `${datay1 * 50}px`;
 
-        square1.dataset.y = datay2;
-        square2.dataset.y = datay1;
-
         square1.innerHTML = gridJS[datax1][datay1];
         square2.innerHTML = gridJS[datax2][datay2];
+
     } else if(datay1 === datay2 && (datax1 === datax2 +1 || datax1 === datax2 -1)){
         square1.style.top = `${datax2 * 50}px`;
         square2.style.top = `${datax1 * 50}px`;
 
-        square1.dataset.x = datax2;
-        square2.dataset.x = datax1;
+        square1.innerHTML = gridJS[datax1][datay1];
+        square2.innerHTML = gridJS[datax2][datay2];
     }
 }
+
+// const checkHorizontalMatches = (grid) =>{
+//     let result = false;
+//     for (let i = 0; i < grid.length; i++) {
+//         for (let j = 0; j < grid[i].length; j++) {
+//             if(grid[i][j] === grid[i][j+1] && grid[i][j] === grid[i][j+2]){
+//                 result = true;
+//                 console.log(grid[i][j].innerHTML)
+//                 grid[i][j].innerHTML = '';
+//             }
+//         }
+//     }
+//     console.log('hay 3 iguales');
+//     return result;
+// }
+
+// const tieneBloqueHorizontal = (matriz) =>{
+//     let result = false;
+//     let newArr = [];
+//     for (let i = 0; i < matriz.length; i++) {
+//         for (let j = 0; j < matriz[i].length; j++) {
+//             if (matriz[i][j] === matriz[i][j+1] && matriz[i][j] === matriz[i][j+2]) {
+//                 result = true;
+//                 matriz[i].splice(j, j+2);
+//             }
+//         }
+//     }
+//     return matriz;
+//     // return result
+// }
