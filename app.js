@@ -125,18 +125,40 @@ const swapElement = (square1, square2) =>{
     gridJS[datax2][datay2] = tempVar;
     
     if(datax1 === datax2 && (datay1 === datay2 + 1 || datay1 === datay2 -1)){
-        square1.style.left = `${datay2 * 50}px`;
-        square2.style.left = `${datay1 * 50}px`;
+        // square1.style.left = `${datay2 * 50}px`;
+        // square2.style.left = `${datay1 * 50}px`;
 
         square1.innerHTML = gridJS[datax1][datay1];
         square2.innerHTML = gridJS[datax2][datay2];
+
+        if(checkVerticalMatches(gridJS) === true || checkHorizontalMatches(gridJS) === true){
+            checkVerticalMatches(gridJS);
+            checkHorizontalMatches(gridJS);
+        } else{
+            // let tempVar = gridJS[datax1][datay1];
+            // gridJS[datax1][datay1] = gridJS[datax2][datay2];
+            // gridJS[datax2][datay2] = tempVar;
+            // square1.innerHTML = gridJS[datax1][datay1];
+            // square2.innerHTML = gridJS[datax2][datay2];
+        }
 
     } else if(datay1 === datay2 && (datax1 === datax2 +1 || datax1 === datax2 -1)){
-        square1.style.top = `${datax2 * 50}px`;
-        square2.style.top = `${datax1 * 50}px`;
+        // square1.style.top = `${datax2 * 50}px`;
+        // square2.style.top = `${datax1 * 50}px`;
 
         square1.innerHTML = gridJS[datax1][datay1];
         square2.innerHTML = gridJS[datax2][datay2];
+
+        if(checkVerticalMatches(gridJS) === true || checkHorizontalMatches(gridJS) === true){
+            checkVerticalMatches(gridJS);
+            checkHorizontalMatches(gridJS);
+        } else{
+            // let tempVar = gridJS[datax1][datay1];
+            // gridJS[datax1][datay1] = gridJS[datax2][datay2];
+            // gridJS[datax2][datay2] = tempVar;
+            // square1.innerHTML = gridJS[datax1][datay1];
+            // square2.innerHTML = gridJS[datax2][datay2];
+        }
     }
 }
 
@@ -203,15 +225,3 @@ const checkVerticalMatches = (gridJS) =>{
     return result;
 }
 
-
-// const tieneBloqueVertical = (matriz) =>{
-//     let result = false;
-//     for (let i = 2; i < matriz.length; i++) {
-//         for (let j = 0; j < matriz[0].length; j++) {
-//             if (matriz[i][j] === matriz[i-1][j] && matriz[i][j] === matriz[i-2][j]) {
-//                 result = true;
-//             }
-//         }
-//     }
-//     return result
-// }
