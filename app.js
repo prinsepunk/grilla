@@ -49,6 +49,7 @@ facil.addEventListener('click', ()=>{
     lv = 9;
     createBoard(lv);
     checkHorizontalMatches(gridJS);
+    checkVerticalMatches(gridJS);
     gridToHTML(lv)
 })
 
@@ -56,6 +57,7 @@ normal.addEventListener('click', ()=>{
     lv = 8;
     createBoard(lv);
     checkHorizontalMatches(gridJS);
+    checkVerticalMatches(gridJS);
     gridToHTML(lv)
 })
 
@@ -63,6 +65,7 @@ dificil.addEventListener('click', ()=>{
     lv = 7;
     createBoard(lv);
     checkHorizontalMatches(gridJS);
+    checkVerticalMatches(gridJS);
     gridToHTML(lv)
 })
 
@@ -168,3 +171,46 @@ const checkHorizontalMatches = (gridJS) =>{
     return result;
 }
 
+const checkVerticalMatches = (gridJS) =>{
+    let result = false;
+    for (let i = 2; i < gridJS.length; i++) {
+        for (let j = 0; j < gridJS[i].length; j++) {
+            if(gridJS[i][j] === gridJS[i-1][j] && gridJS[i][j] === gridJS[i-2][j] && gridJS[i][j] === gridJS[i-3][j] && gridJS[i][j] === gridJS[i-4][j]){
+                result = true;
+                gridJS[i][j] = '';
+                gridJS[i-1][j] = '';
+                gridJS[i-2][j] = '';
+                gridJS[i-3][j] = '';
+                gridJS[i-4][j] = '';
+                gridToHTML(lv)
+            } else if(gridJS[i][j] === gridJS[i-1][j] && gridJS[i][j] === gridJS[i-2][j] && gridJS[i][j] === gridJS[i-3][j]){
+                result = true;
+                gridJS[i][j] = '';
+                gridJS[i-1][j] = '';
+                gridJS[i-2][j] = '';
+                gridJS[i-3][j] = '';
+                gridToHTML(lv)
+            }else if(gridJS[i][j] === gridJS[i-1][j] && gridJS[i][j] === gridJS[i-2][j]){
+                result = true;
+                gridJS[i][j] = '';
+                gridJS[i-1][j] = '';
+                gridJS[i-2][j] = '';
+                gridToHTML(lv)
+            }
+        }
+    }
+    return result;
+}
+
+
+// const tieneBloqueVertical = (matriz) =>{
+//     let result = false;
+//     for (let i = 2; i < matriz.length; i++) {
+//         for (let j = 0; j < matriz[0].length; j++) {
+//             if (matriz[i][j] === matriz[i-1][j] && matriz[i][j] === matriz[i-2][j]) {
+//                 result = true;
+//             }
+//         }
+//     }
+//     return result
+// }
