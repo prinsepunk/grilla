@@ -45,3 +45,7 @@ body{
 .match{
     border: 1px solid black;
 }
+
+.score{
+    margin-bottom: 10px;
+}

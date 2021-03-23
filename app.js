@@ -6,6 +6,8 @@ const normal = document.getElementById('normal');
 const dificil = document.getElementById('dificil');
 let position = [];
 let lv;
+const scoreHTML = document.getElementById('score');
+let score = 0;
 
 const getRandom = (items) => Math.floor(Math.random() * items.length);
 const getItemRandom = (items) => items[getRandom(items)];
@@ -81,8 +83,18 @@ const selectedItem = (e) =>{
             // console.log(`datax1: ${datax1}, datax2: ${datax2}, datay1: ${datay1}, datay2: ${datay2}`);
 
             swapElement(click, e.target);
-
             click.classList.remove('selected');
+            checkVerticalMatches(gridJS);
+            checkHorizontalMatches(gridJS);
+
+            // if(checkVerticalMatches(gridJS) === true || checkHorizontalMatches(gridJS) === true){
+                
+            // } else{
+            //     setTimeout(() => {
+            //         swapElement(click, e.target);
+            //     }, 600);
+            // }
+            
         } else{
             click.classList.remove('selected');
             e.target.classList.add('selected');
@@ -131,16 +143,16 @@ const swapElement = (square1, square2) =>{
         square1.innerHTML = gridJS[datax1][datay1];
         square2.innerHTML = gridJS[datax2][datay2];
 
-        if(checkVerticalMatches(gridJS) === true || checkHorizontalMatches(gridJS) === true){
-            checkVerticalMatches(gridJS);
-            checkHorizontalMatches(gridJS);
-        } else{
-            // let tempVar = gridJS[datax1][datay1];
-            // gridJS[datax1][datay1] = gridJS[datax2][datay2];
-            // gridJS[datax2][datay2] = tempVar;
-            // square1.innerHTML = gridJS[datax1][datay1];
-            // square2.innerHTML = gridJS[datax2][datay2];
-        }
+        // if(checkVerticalMatches(gridJS) === true || checkHorizontalMatches(gridJS) === true){
+        //     checkVerticalMatches(gridJS);
+        //     checkHorizontalMatches(gridJS);
+        // } else{
+        //     // let tempVar = gridJS[datax1][datay1];
+        //     // gridJS[datax1][datay1] = gridJS[datax2][datay2];
+        //     // gridJS[datax2][datay2] = tempVar;
+        //     // square1.innerHTML = gridJS[datax1][datay1];
+        //     // square2.innerHTML = gridJS[datax2][datay2];
+        // }
 
     } else if(datay1 === datay2 && (datax1 === datax2 +1 || datax1 === datax2 -1)){
         // square1.style.top = `${datax2 * 50}px`;
@@ -149,16 +161,16 @@ const swapElement = (square1, square2) =>{
         square1.innerHTML = gridJS[datax1][datay1];
         square2.innerHTML = gridJS[datax2][datay2];
 
-        if(checkVerticalMatches(gridJS) === true || checkHorizontalMatches(gridJS) === true){
-            checkVerticalMatches(gridJS);
-            checkHorizontalMatches(gridJS);
-        } else{
-            // let tempVar = gridJS[datax1][datay1];
-            // gridJS[datax1][datay1] = gridJS[datax2][datay2];
-            // gridJS[datax2][datay2] = tempVar;
-            // square1.innerHTML = gridJS[datax1][datay1];
-            // square2.innerHTML = gridJS[datax2][datay2];
-        }
+        // if(checkVerticalMatches(gridJS) === true || checkHorizontalMatches(gridJS) === true){
+        //     checkVerticalMatches(gridJS);
+        //     checkHorizontalMatches(gridJS);
+        // } else{
+        //     // let tempVar = gridJS[datax1][datay1];
+        //     // gridJS[datax1][datay1] = gridJS[datax2][datay2];
+        //     // gridJS[datax2][datay2] = tempVar;
+        //     // square1.innerHTML = gridJS[datax1][datay1];
+        //     // square2.innerHTML = gridJS[datax2][datay2];
+        // }
     }
 }
 
@@ -168,6 +180,8 @@ const checkHorizontalMatches = (gridJS) =>{
         for (let j = 0; j < gridJS[i].length; j++) {
             if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2] && gridJS[i][j] === gridJS[i][j+3] && gridJS[i][j] === gridJS[i][j+4]){
                 result = true;
+                // console.log('horizontal 5')
+                // score++
                 gridJS[i][j] = '';
                 gridJS[i][j+1] = '';
                 gridJS[i][j+2] = '';
@@ -176,6 +190,8 @@ const checkHorizontalMatches = (gridJS) =>{
                 gridToHTML(lv)
             } else if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2] && gridJS[i][j] === gridJS[i][j+3]){
                 result = true;
+                // console.log('horizontal 4')
+                // score++
                 gridJS[i][j] = '';
                 gridJS[i][j+1] = '';
                 gridJS[i][j+2] = '';
@@ -183,6 +199,8 @@ const checkHorizontalMatches = (gridJS) =>{
                 gridToHTML(lv)
             }else if(gridJS[i][j] === gridJS[i][j+1] && gridJS[i][j] === gridJS[i][j+2]){
                 result = true;
+                // console.log('horizontal 3')
+                // score++
                 gridJS[i][j] = '';
                 gridJS[i][j+1] = '';
                 gridJS[i][j+2] = '';
@@ -208,6 +226,8 @@ const checkVerticalMatches = (gridJS) =>{
             // } else 
             if(gridJS[i][j] === gridJS[i-1][j] && gridJS[i][j] === gridJS[i-2][j] && gridJS[i][j] === gridJS[i-3][j]){
                 result = true;
+                // console.log('vertical 4')
+                // score++
                 gridJS[i][j] = '';
                 gridJS[i-1][j] = '';
                 gridJS[i-2][j] = '';
@@ -215,6 +235,8 @@ const checkVerticalMatches = (gridJS) =>{
                 gridToHTML(lv)
             }else if(gridJS[i][j] === gridJS[i-1][j] && gridJS[i][j] === gridJS[i-2][j]){
                 result = true;
+                // console.log('vertical 3')
+                // score++
                 gridJS[i][j] = '';
                 gridJS[i-1][j] = '';
                 gridJS[i-2][j] = '';
@@ -225,3 +247,11 @@ const checkVerticalMatches = (gridJS) =>{
     return result;
 }
 
+// setTimeout(() => {
+//     console.log(score);
+// }, 30000);
+
+
+// setInterval(() => {
+//     console.log(score)
+// }, 1000);
